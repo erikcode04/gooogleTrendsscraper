@@ -21,13 +21,15 @@
       "type": "integer",
       "description": "Maximum number of concurrent requests",
       "default": 1,
-      "minimum": 1
+      "minimum": 1,
+      "editor": "number"
     },
     "testUrl": {
       "title": "Test URL",
       "type": "string",
       "description": "URL to test proxy connection",
-      "default": "https://httpbin.org/ip"
+      "default": "https://httpbin.org/ip",
+      "editor": "textfield"
     }
   }
 }
