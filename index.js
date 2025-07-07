@@ -24,12 +24,24 @@ try {
 
     console.log('Starting Apify Actor with residential proxy...');
 
+    // Get proxy info
+    let proxyOptions = {};
+    if (proxyConfiguration) {
+        const proxyInfo = await proxyConfiguration.newProxyInfo();
+        proxyOptions = {
+            proxy: {
+                server: `${proxyInfo.url}`,
+                username: proxyInfo.username,
+                password: proxyInfo.password
+            }
+        };
+        console.log('Using proxy:', proxyInfo.url);
+    }
+
     // Launch browser with proxy
     const browser = await chromium.launch({
         headless: true,
-        proxy: proxyConfiguration ? {
-            server: await proxyConfiguration.newProxyInfo(),
-        } : undefined
+        ...proxyOptions
     });
 
     const page = await browser.newPage();
