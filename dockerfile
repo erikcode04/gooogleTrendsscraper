@@ -1,19 +1,10 @@
-FROM apify/actor-node:20
-
-# Install system dependencies required for Playwright (Alpine Linux)
-RUN apk update && apk add --no-cache \
-    wget \
-    gnupg \
-    ca-certificates
+FROM apify/actor-node-playwright:20
 
 # Copy package files
 COPY package*.json ./
 
 # Install dependencies
 RUN npm install --quiet --only=prod --no-optional
-
-# Install Playwright browsers with dependencies
-RUN npx playwright install --with-deps chromium
 
 # Copy source code
 COPY . ./
