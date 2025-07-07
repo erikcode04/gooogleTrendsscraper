@@ -1,5 +1,5 @@
 import { Actor } from 'apify';
-import puppeteer from 'puppeteer';
+import { chromium } from 'playwright';
 
 // Initialize the Actor
 await Actor.init();
@@ -25,36 +25,14 @@ try {
     console.log('Starting Apify Actor with residential proxy...');
 
     // Launch browser with proxy
-    const browser = await puppeteer.launch({
+    const browser = await chromium.launch({
         headless: true,
-        args: [
-            '--no-sandbox',
-            '--disable-setuid-sandbox',
-            '--disable-dev-shm-usage',
-            '--disable-gpu'
-        ]
+        proxy: proxyConfiguration ? {
+            server: await proxyConfiguration.newProxyInfo(),
+        } : undefined
     });
 
     const page = await browser.newPage();
-
-    // Apply proxy to the page
-    if (proxyConfiguration) {
-        const proxyUrl = await proxyConfiguration.newUrl();
-        console.log('Using proxy:', proxyUrl);
-
-        // Configure proxy for the page
-        await page.authenticate({
-            username: proxyUrl.username,
-            password: proxyUrl.password
-        });
-
-        await page.setRequestInterception(true);
-        page.on('request', request => {
-            request.continue({
-                proxy: `${proxyUrl.protocol}//${proxyUrl.host}:${proxyUrl.port}`
-            });
-        });
-    }
 
     // Test connection and log status
     console.log('Testing proxy connection...');
@@ -62,7 +40,7 @@ try {
     try {
         // Navigate to IP check service to verify proxy
         await page.goto(config.testUrl, {
-            waitUntil: 'networkidle2',
+            waitUntil: 'networkidle',
             timeout: 30000
         });
 
@@ -108,7 +86,7 @@ try {
     try {
         console.log('Testing TikTok accessibility...');
         await page.goto('https://www.tiktok.com', {
-            waitUntil: 'networkidle2',
+            waitUntil: 'networkidle',
             timeout: 30000
         });
 

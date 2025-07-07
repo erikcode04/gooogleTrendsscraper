@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "apify": "^3.0.0",
-    "puppeteer": "^22.8.2"
+    "playwright": "^1.40.0"
   },
   "author": "Erik",
   "license": "MIT"
