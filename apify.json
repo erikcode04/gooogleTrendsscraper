@@ -1,0 +1,7 @@
+{
+    "name": "tiktok-sounds-scraper",
+    "version": "1.0.0",
+    "buildTag": "latest",
+    "env": {},
+    "template": "puppeteer_crawler"
+}

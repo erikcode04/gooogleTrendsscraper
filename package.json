@@ -1,0 +1,17 @@
+{
+  "name": "tiktok-sounds-scraper",
+  "version": "1.0.0",
+  "description": "TikTok sounds data scraper with residential proxy support",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node index.js"
+  },
+  "dependencies": {
+    "apify": "^3.0.0",
+    "puppeteer": "^21.0.0"
+  },
+  "author": "Erik",
+  "license": "MIT"
+}

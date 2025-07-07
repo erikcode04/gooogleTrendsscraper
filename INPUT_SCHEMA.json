@@ -1,0 +1,33 @@
+{
+  "title": "TikTok Sounds Scraper Input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "proxyConfiguration": {
+      "title": "Proxy Configuration",
+      "type": "object",
+      "description": "Proxy settings for the scraper",
+      "default": {
+        "useApifyProxy": true,
+        "apifyProxyGroups": [
+          "RESIDENTIAL"
+        ],
+        "apifyProxyCountry": "US"
+      },
+      "editor": "proxy"
+    },
+    "maxConcurrency": {
+      "title": "Max Concurrency",
+      "type": "integer",
+      "description": "Maximum number of concurrent requests",
+      "default": 1,
+      "minimum": 1
+    },
+    "testUrl": {
+      "title": "Test URL",
+      "type": "string",
+      "description": "URL to test proxy connection",
+      "default": "https://httpbin.org/ip"
+    }
+  }
+}
